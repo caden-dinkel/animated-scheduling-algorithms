@@ -1,21 +1,12 @@
-import { useState } from "react";
+import Button, { ButtonProps } from "./Button";
 
-interface StartButtonProps {
-  onClick: () => void;
+interface StartButtonProps extends Omit<ButtonProps, "label"> {
+  label?: string;
 }
 
-const StartButton: React.FC<StartButtonProps> = ({ onClick }) => {
-  const [clicked, SetClicked] = useState(false);
-
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={onClick}
-      >
-        Start
-      </button>
-    </div>
-  );
+const StartButton: React.FC<StartButtonProps> = ({
+  onClick,
+  label = "Start",
+}) => {
+  return <Button label={label} onClick={onClick} />;
 };
-export default StartButton;

@@ -1,7 +1,7 @@
-export default interface Process {
+export interface Process {
   id: number;
   name: string;
   burstTime: number;
-  startTime?: number;
+  arrivalTime: number;
   endTime?: number;
 }

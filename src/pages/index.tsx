@@ -9,7 +9,7 @@ import {motion} from 'framer-motion'
 const Home = () => {
   const [completed, setCompleted] = useState<Process[]>([]);
   const [processes, setProcesses] = useState<Process[]>([]);
-    
+
   const runFCFS = async (processes: Process[]) => {
     for (let i = 0; i < processes.length; i++) {
       const process = processes[i];
@@ -51,6 +51,8 @@ const Home = () => {
     if (checkedItems.animation3) animations.push("animate__slideInUp");
     return animations;
   };
+
+  const totalBurstTime = 
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200">
