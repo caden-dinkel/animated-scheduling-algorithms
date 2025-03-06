@@ -1,114 +1,85 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import Checkbox from "@/components/CheckBox";
+import StartButton from "../components/StartButton";
+import { useEffect, useState } from "react";
+import Popup from "@/components/Popup";
+import "animate.css";
+import { Process } from "@/types/Process";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const Home = () => {
+  const [completed, setCompleted] = useState<Process[]>([]);
+    const [processes, setProcesses] = useState<Process[]>([])
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  useEffect(() => {
+    const generateProcesses:
+  });
 
-export default function Home() {
+  const runFCFS = async (processes: Process[]) => {
+    for (let i = 0; i < processes.length; i++) {
+      const process = processes[i];
+      setCompleted((prev) => [...prev, process]);
+
+      await new Promise((resolve) =>
+        setTimeout(resolve, process.burstTime * 1000)
+      );
+    }
+  };
+
+  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>({
+    animation1: false,
+    animation2: false,
+    animation3: false,
+  });
+
+  const [isPopupVisible, setIsPopupVisible] = useState<boolean>(false);
+
+  const handleCheckboxChange = (animation: string, checked: boolean) => {
+    setCheckedItems((prev) => ({ ...prev, [animation]: checked }));
+  };
+
+  const handleStartButtonClick = () => {
+    const animations = Object.keys(checkedItems).filter(
+      (key) => checkedItems[key]
+    );
+    setIsPopupVisible(true);
+  };
+
+  const handlePopupClose = () => {
+    setIsPopupVisible(false);
+  };
+
+  const getAnimations = () => {
+    const animations: string[] = [];
+    if (checkedItems.animation1) animations.push("animate__bounce");
+    if (checkedItems.animation2) animations.push("animate__fadeIn");
+    if (checkedItems.animation3) animations.push("animate__slideInUp");
+    return animations;
+  };
+
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className="min-h-screen flex-col items-center justify-center space-y-6">
+      <Checkbox
+        label="Bounce Animation"
+        checked={checkedItems.animation1}
+        onChange={(checked) => handleCheckboxChange("animation1", checked)}
+      />
+      <Checkbox
+        label="Fade In Animation"
+        checked={checkedItems.animation2}
+        onChange={(checked) => handleCheckboxChange("animation2", checked)}
+      />
+      <Checkbox
+        label="Slide Up Animation"
+        checked={checkedItems.animation3}
+        onChange={(checked) => handleCheckboxChange("animation3", checked)}
+      />
+      <StartButton onClick={handleStartButtonClick} />
+      <Popup
+        isVisible={isPopupVisible}
+        animations={getAnimations()}
+        onClose={handlePopupClose}
+      />
     </div>
   );
-}
+};
+
+export default Home;
