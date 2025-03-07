@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import Button from "../components/Button";
 import { FCFS } from "../algorithms/FCFS";
 import Scheduler from "@/algorithms/Scheduler";
-import DisplayProcesses from "../components/DisplayProcesses"
+import DisplayProcesses from "../components/DisplayProcesses";
 
 const Home: React.FC = () => {
   const [processes, setProcesses] = useState<Process[]>([]);
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
       <ProcessGenerator onGenerate={handleGenerate} />
 
       {/* Display generated processes */}
-        <DisplayProcesses
+      <DisplayProcesses processes={processes} />
       <div>
         <h1>Select Options</h1>
         <CheckboxGroup
