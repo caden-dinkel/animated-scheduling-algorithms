@@ -1,6 +1,6 @@
 import { Process } from "../types/Process";
 import { SchedulingAlgorithm } from "../types/SchedulingAlgorithm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 
 interface SchedulingAlgorithmProps {

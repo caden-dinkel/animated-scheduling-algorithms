@@ -22,8 +22,6 @@ const Checkbox: React.FC<CheckboxProps> = ({
         onChange={(e) => onChange(e.target.checked)}
         className="form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded peer"
       />
-      //htmlFor Allows react to associate label with input(lets you click on
-      text to highlight)
       <label htmlFor={id} className="text-gray-700 peer-checked:text-blue-600">
         {label}
       </label>
