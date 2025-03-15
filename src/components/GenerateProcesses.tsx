@@ -12,6 +12,7 @@ const GenerateRandomProcesses = (
   maxArrivalTime: number
 ): Process[] => {
   const processes: Process[] = [];
+  console.log(numProcesses);
   for (let i = 1; i <= numProcesses; i++) {
     const processName = `P${i}`;
     const burstTime =
@@ -34,20 +35,31 @@ interface ProcessGeneratorProps {
   onGenerate: (processes: Process[]) => void;
 }
 
+const INITIAL_MIN_PROCESSES = 4;
+const INITIAL_MAX_PROCESSES = 7;
+
+const INITIAL_MIN_ARRIVAL = 0;
+const INITIAL_MAX_ARRIVAL = 4;
+
+const INITIAL_MIN_BURST = 2;
+const INITIAL_MAX_BURST = 7;
+
 const ProcessGenerator: React.FC<ProcessGeneratorProps> = ({ onGenerate }) => {
   // State to track dynamic min/max values
-  const [minProcesses, setMinProcesses] = useState(3);
-  const [maxProcesses, setMaxProcesses] = useState(7);
-  const [minBurstTime, setMinBurstTime] = useState(1);
-  const [maxBurstTime, setMaxBurstTime] = useState(10);
-  const [minArrivalTime, setMinArrivalTime] = useState(0);
-  const [maxArrivalTime, setMaxArrivalTime] = useState(10);
+  const [minProcesses, setMinProcesses] = useState(INITIAL_MIN_PROCESSES);
+  const [maxProcesses, setMaxProcesses] = useState(INITIAL_MAX_PROCESSES);
+  const [minBurstTime, setMinBurstTime] = useState(INITIAL_MIN_BURST);
+  const [maxBurstTime, setMaxBurstTime] = useState(INITIAL_MAX_BURST);
+  const [minArrivalTime, setMinArrivalTime] = useState(INITIAL_MIN_ARRIVAL);
+  const [maxArrivalTime, setMaxArrivalTime] = useState(INITIAL_MAX_ARRIVAL);
 
   // Handle generating random processes based on current state
   const generateProcesses = () => {
     const numProcesses =
-      Math.floor(Math.random() * (maxProcesses - minProcesses + 1)) +
-      minProcesses;
+      minProcesses === maxProcesses
+        ? minProcesses
+        : Math.floor(Math.random() * (maxProcesses - minProcesses + 1)) +
+          minProcesses;
     const randomProcesses = GenerateRandomProcesses(
       numProcesses,
       minBurstTime,
@@ -55,6 +67,7 @@ const ProcessGenerator: React.FC<ProcessGeneratorProps> = ({ onGenerate }) => {
       minArrivalTime,
       maxArrivalTime
     );
+    console.log(randomProcesses);
     onGenerate(randomProcesses);
   };
 
@@ -66,6 +79,8 @@ const ProcessGenerator: React.FC<ProcessGeneratorProps> = ({ onGenerate }) => {
         maxValId={{ maxId: "maxProcesses", maxLabel: "Max Processes" }}
         onMinChange={(value) => setMinProcesses(value)}
         onMaxChange={(value) => setMaxProcesses(value)}
+        initialMax={INITIAL_MAX_PROCESSES}
+        initialMin={INITIAL_MIN_PROCESSES}
       />
 
       {/* Min/Max inputs for burst time */}
@@ -74,6 +89,8 @@ const ProcessGenerator: React.FC<ProcessGeneratorProps> = ({ onGenerate }) => {
         maxValId={{ maxId: "maxBurstTime", maxLabel: "Max Burst Time" }}
         onMinChange={(value) => setMinBurstTime(value)}
         onMaxChange={(value) => setMaxBurstTime(value)}
+        initialMax={INITIAL_MAX_BURST}
+        initialMin={INITIAL_MIN_BURST}
       />
 
       {/* Min/Max inputs for arrival time */}
@@ -82,6 +99,8 @@ const ProcessGenerator: React.FC<ProcessGeneratorProps> = ({ onGenerate }) => {
         maxValId={{ maxId: "maxArrivalTime", maxLabel: "Max Arrival Time" }}
         onMinChange={(value) => setMinArrivalTime(value)}
         onMaxChange={(value) => setMaxArrivalTime(value)}
+        initialMax={INITIAL_MAX_ARRIVAL}
+        initialMin={INITIAL_MIN_ARRIVAL}
       />
 
       {/* Button to generate processes */}

@@ -5,7 +5,7 @@ import { Process } from "@/types/Process";
 import ProcessGenerator from "../components/GenerateProcesses";
 import CheckboxGroup from "@/components/CheckBoxGroup";
 import Button from "@/components/Button";
-import MinMaxInputs from "@/components/MinMaxInputs";
+import ProcessDisplay from "@/components/DisplayProcesses";
 import { useState } from "react";
 
 interface InitialStateProps {
@@ -50,6 +50,7 @@ const InitialState: React.FC<InitialStateProps> = ({ onSubmit }) => {
       />
       <Button onClick={handleSubmit} label="Submit" />
       <ProcessGenerator onGenerate={handleGenerate} />
+      {processes.length > 0 && <ProcessDisplay processes={processes} />}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NumberBox from "./NumberBox";
 
 interface MinMaxInputProps {
@@ -6,6 +6,8 @@ interface MinMaxInputProps {
   maxValId: { maxId: string; maxLabel: string };
   onMinChange: (value: number) => void;
   onMaxChange: (value: number) => void;
+  initialMax: number;
+  initialMin: number;
 }
 
 const MinMaxInputs: React.FC<MinMaxInputProps> = ({
@@ -13,9 +15,19 @@ const MinMaxInputs: React.FC<MinMaxInputProps> = ({
   maxValId,
   onMinChange,
   onMaxChange,
+  initialMax,
+  initialMin,
 }) => {
-  const [min, setMin] = useState<number>(0);
-  const [max, setMax] = useState<number>(10);
+  const [min, setMin] = useState<number>(initialMin);
+  const [max, setMax] = useState<number>(initialMax);
+
+  useEffect(() => {
+    setMin(initialMin);
+  }, [initialMin]);
+
+  useEffect(() => {
+    setMax(initialMax);
+  }, [initialMax]);
 
   const handleMinChange = (newMin: number) => {
     if (newMin <= max) {
@@ -40,8 +52,6 @@ const MinMaxInputs: React.FC<MinMaxInputProps> = ({
           label={minValId.minLabel}
           onValueChange={handleMinChange}
         />
-      </div>
-      <div>
         <NumberBox
           id={maxValId.maxId}
           value={max}
