@@ -26,6 +26,7 @@ const GenerateRandomProcesses = (
       name: processName,
       burstTime: burstTime,
       arrivalTime: arrivalTime,
+      status: "none",
     });
   }
   return processes;

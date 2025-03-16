@@ -48,7 +48,7 @@ const InitialState: React.FC<InitialStateProps> = ({ onSubmit }) => {
         checkboxes={checkboxes}
         onSelectionChange={handleCheckboxChange} // Pass callback to get selected values
       />
-      <Button onClick={handleSubmit} label="Submit" />
+      <Button onClick={handleSubmit} label="Start Animations" />
       <ProcessGenerator onGenerate={handleGenerate} />
       {processes.length > 0 && <ProcessDisplay processes={processes} />}
     </div>

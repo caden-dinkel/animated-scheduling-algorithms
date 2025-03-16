@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Process } from "./Process";
 
-type Queue<Process> = Process[];
+type Queue = Process[];
 
-const useQueue = <T>() => {
-  const [queue, setQueue] = useState<Queue<Process>>([]);
+const useQueue = () => {
+  const [queue, setQueue] = useState<Queue>([]);
 
   // Enqueue function to add an item to the queue
   const enqueue = (process: Process): void => {

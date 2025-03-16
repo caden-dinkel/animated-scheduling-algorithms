@@ -1,5 +1,3 @@
-import exp from "constants";
-import { useState } from "react";
 interface NumberBoxProps {
   value: number;
   id: string;

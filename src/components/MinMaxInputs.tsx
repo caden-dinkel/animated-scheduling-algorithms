@@ -44,21 +44,19 @@ const MinMaxInputs: React.FC<MinMaxInputProps> = ({
   };
 
   return (
-    <div>
-      <div>
-        <NumberBox
-          id={minValId.minId}
-          value={min}
-          label={minValId.minLabel}
-          onValueChange={handleMinChange}
-        />
-        <NumberBox
-          id={maxValId.maxId}
-          value={max}
-          label={maxValId.maxLabel}
-          onValueChange={handleMaxChange}
-        />
-      </div>
+    <div style={{ display: "flex", gap: "15px" }}>
+      <NumberBox
+        id={minValId.minId}
+        value={min}
+        label={minValId.minLabel}
+        onValueChange={handleMinChange}
+      />
+      <NumberBox
+        id={maxValId.maxId}
+        value={max}
+        label={maxValId.maxLabel}
+        onValueChange={handleMaxChange}
+      />
     </div>
   );
 };
